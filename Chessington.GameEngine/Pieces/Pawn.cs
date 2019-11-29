@@ -21,12 +21,14 @@ namespace Chessington.GameEngine.Pieces
                 {
                     availableMove.Add(Square.At(4, currentSquare.Col));
                     availableMove.Add(Square.At(5, currentSquare.Col));
+                    
                 }
 
                 else
                 {
                     availableMove.Add(Square.At(currentSquare.Row - 1, currentSquare.Col));
                 }
+                
 
             }
             else
@@ -48,8 +50,6 @@ namespace Chessington.GameEngine.Pieces
             }
 
             return availableMove;
-
-
 
 
 
