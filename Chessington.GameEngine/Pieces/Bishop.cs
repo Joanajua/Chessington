@@ -10,45 +10,21 @@ namespace Chessington.GameEngine.Pieces
 
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
-            List<Square> availableMove = new List<Square>();
+            var expectedMoves = new List<Square>();
 
-            if (Player == Player.White)
-            {
-                var currentSquare = board.FindPiece(this);
+            //Checking the backwards diagonal, i.e. 0,0 1,1, 2,2
+            for (var i = 0; i < 8; i++)
+                expectedMoves.Add(Square.At(i, i));
 
-                if (currentSquare.Row == 7)
-                {
-                    availableMove.Add(Square.At(4, currentSquare.Col));
-                    availableMove.Add(Square.At(5, currentSquare.Col));
+            //Checking the forwards diagonal i.e. 5,3 6,2 7,1
+            for (var i = 1; i < 8; i++)
+                expectedMoves.Add(Square.At(i, 8 - i));
 
-                }
+            //Get rid of our starting location.
+            expectedMoves.RemoveAll(s => s == Square.At(4, 4));
 
-                else
-                {
-                    availableMove.Add(Square.At(currentSquare.Row - 1, currentSquare.Col));
-                }
-
-
-            }
-            else
-            {
-
-                var currentSquare = board.FindPiece(this);
-
-                if (currentSquare.Row == 1)
-                {
-                    availableMove.Add(Square.At(3, currentSquare.Col));
-                    availableMove.Add(Square.At(2, currentSquare.Col));
-                }
-
-                else
-                {
-                    availableMove.Add(Square.At(currentSquare.Row + 1, currentSquare.Col));
-                }
-
-            }
-
-            return availableMove;
+            
+            return expectedMoves;
             
 
         }
